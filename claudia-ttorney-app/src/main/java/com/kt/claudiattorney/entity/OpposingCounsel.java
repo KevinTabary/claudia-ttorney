@@ -7,32 +7,28 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.List;
 
-@Entity(name = "CUSTOMER")
+@Entity(name = "OPPOSING_COUNSEL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class OpposingCounsel {
 
-    @Id
     @Column(name = "ID")
+    @Id
     private Long id;
+    @Column(name = "NAME")
+    private String name;
     @Column(name = "FIRSTNAME")
     private String firstName;
-    @Column(name = "LASTNAME")
-    private String lastName;
     @Column(name = "ADRESS")
     private String adress;
     @Column(name = "PHONENUMBER")
     private String phoneNumber;
+    @Column(name = "FAXNUMBER")
+    private String faxNumber;
     @Column(name = "MAIL")
     private String mail;
     @Column(name = "OTHER")
     private String other;
-    @Column(name = "VAT")
-    private Double vat;
-    @ManyToMany
-    private List<Case> cases;
 }
