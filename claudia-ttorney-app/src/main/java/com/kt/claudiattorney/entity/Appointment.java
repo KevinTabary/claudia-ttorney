@@ -4,12 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity(name = "APPOINTMENT")
 @Data
@@ -19,18 +15,16 @@ public class Appointment {
 
     @Column(name = "ID")
     @Id
+    @GeneratedValue
     private Long id;
-
     @Column(name = "DESCRIPTION")
     private String description;
-
     @Column(name = "DATE")
     private Date date;
-
     @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
     private AppointmentType type;
-
-    @ManyToMany
-    private List<Case> cases;
-
+    @ManyToOne
+    @JoinColumn(name = "CASE_ID")
+    private Case aCase;
 }

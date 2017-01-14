@@ -2,7 +2,7 @@ package com.kt.claudiattorney.entity;
 
 public enum AppointmentType {
 
-    CLIENTMEETING,
+    CLIENT_MEETING,
     HEARING,
     OTHER
 }

@@ -1,6 +1,6 @@
 package com.kt.claudiattorney.entity;
 
-public enum ServiceStatus {
+public enum PrestationStatus {
 
     UNPAID,
     PAID,
