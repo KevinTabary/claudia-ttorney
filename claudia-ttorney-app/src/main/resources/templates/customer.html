@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p><a href="case.html" th:href="@{/case}">case</a></p>
+
+<h1>Form</h1>
+<form action="#" th:action="@{/customer}" th:object="${customer}" method="post">
+    <table>
+        <tr>
+            <td>First:</td>
+            <td><input type="text" th:field="*{firstName}"/></td>
+            <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="error">Name Error</td>
+        </tr>
+        <tr>
+            <td>LastName:</td>
+            <td><input type="text" th:field="*{lastName}"/></td>
+            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td><input type="text" th:field="*{address}"/></td>
+            <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Phone number:</td>
+            <td><input type="text" th:field="*{phoneNumber}"/></td>
+            <td th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Mail:</td>
+            <td><input type="text" th:field="*{mail}"/></td>
+            <td th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Other:</td>
+            <td><input type="text" th:field="*{other}"/></td>
+            <td th:if="${#fields.hasErrors('other')}" th:errors="*{other}">Age Error</td>
+        </tr>
+        <tr>
+            <td>Vat:</td>
+            <td><input type="text" th:field="*{vat}"/></td>
+            <td th:if="${#fields.hasErrors('vat')}" th:errors="*{vat}">Age Error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+            <td>
+                <button type="reset">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>FIRST_NAME</th>
+        <th>LAST_NAME</th>
+        <th>ADDRESS</th>
+        <th>MAIL</th>
+        <th>OTHER</th>
+        <th>VAT</th>
+        <th>Cases</th>
+
+    </tr>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.firstName}"></td>
+        <td th:text="${customer.lastName}"></td>
+        <td th:text="${customer.address}"></td>
+        <td th:text="${customer.mail}"></td>
+        <td th:text="${customer.other}"></td>
+        <td th:text="${customer.vat}"></td>
+        <td>
+            <ul>
+                <li th:each="case : ${customer.cases}" th:text="${case.description}"></li>
+            </ul>
+        </td>
+        <td><a th:href="@{/case/{customerId}/create(customerId=${customer.id})}" class="btn btn-default">Create
+            case</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

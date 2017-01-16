@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p><a href="customer.html" th:href="@{/customer}">Customer</a></p>
+
+<h1>Form</h1>
+<form action="#" th:action="@{/case}" th:object="${case}" method="post">
+    <table>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Hourly rate:</td>
+            <td><input type="text" th:field="*{hourlyRate}"/></td>
+        </tr>
+        <tr>
+            <td>Status :</td>
+            <td>
+                <select th:field="*{status}">
+                    <option th:each="caseStatus : ${T(com.kt.claudiattorney.entity.CaseStatus).values()}"
+                            th:value="${caseStatus}"
+                            th:text="${caseStatus}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+            <td>
+                <button type="reset">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table>
+    <tr>
+        <th>Description</th>
+        <th>Hourly rate</th>
+        <th>Status</th>
+        <th>Customers</th>
+    </tr>
+    <tr th:each="case : ${cases}">
+        <td th:text="${case.description}"></td>
+        <td th:text="${case.hourlyRate}"></td>
+        <td th:text="${case.status}"></td>
+        <td>
+            <ul>
+                <li th:each="customer : ${case.customers}" th:text="${customer.firstName}"></li>
+            </ul>
+        </td>
+        <td><a th:href="@{/customer/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create
+            case</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

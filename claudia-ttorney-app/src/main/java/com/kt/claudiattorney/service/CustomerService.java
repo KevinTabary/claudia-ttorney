@@ -24,4 +24,8 @@ public class CustomerService {
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
+
+    public Customer findOne(Long id) {
+        return customerRepository.findOne(id);
+    }
 }
