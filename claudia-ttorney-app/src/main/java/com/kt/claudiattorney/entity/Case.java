@@ -1,7 +1,9 @@
 package com.kt.claudiattorney.entity;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Case {
 
     @Id
@@ -31,7 +34,8 @@ public class Case {
     private CaseStatus status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aCase")
     private List<Prestation> prestations;
-    @ManyToMany(mappedBy = "cases", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "CUSTOMER_CASE", joinColumns = @JoinColumn(name = "CASE_ID"), inverseJoinColumns = @JoinColumn(name = "CUSTOMER_ID"))
     private List<Customer> customers;
     @ManyToMany(mappedBy = "casesManaged")
     private List<OpposingCounsel> opposingCounsels;
@@ -39,4 +43,11 @@ public class Case {
     private List<Appointment> appointments;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aCase")
     private List<Task> tasks;
+
+    public List<Customer> getCustomers() {
+        if (customers == null) {
+            customers = Lists.newArrayList();
+        }
+        return customers;
+    }
 }

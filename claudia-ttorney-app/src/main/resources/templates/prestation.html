@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p><a href="customer.html" th:href="@{/customer}">Customer</a></p>
+<p><a href="case.html" th:href="@{/case}">Case</a></p>
+
+<h1>Form</h1>
+<form th:action="@{/prestation}" th:object="${prestation}" method="post">
+    <table>
+        <tr>
+            <td>Type:</td>
+            <td><input type="text" th:field="*{type}"/></td>
+        </tr>
+        <tr>
+            <td>Details:</td>
+            <td><input type="text" th:field="*{details}"/></td>
+        </tr>
+        <tr>
+            <td>Hourly rate:</td>
+            <td><input type="text" th:field="*{hourlyRate}"/></td>
+        </tr>
+        <tr>
+            <td>Vat:</td>
+            <td><input type="text" th:field="*{vat}"/></td>
+        </tr>
+        <!--<tr>-->
+        <!--<td>Date:</td>-->
+        <!--<td><input type="date" th:field="*{date}"/></td>-->
+        <!--</tr>-->
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+            <td>
+                <button type="reset">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Details</th>
+        <th>Hourly rate</th>
+        <th>Case description</th>
+        <th>Create case</th>
+    </tr>
+    <tr th:each="prestation : ${prestations}">
+        <td th:text="${prestation.type}"></td>
+        <td th:text="${prestation.details}"></td>
+        <td th:text="${prestation.hourlyRate}"></td>
+        <td th:text="${prestation.aCase.description}"></td>
+    </tr>
+</table>
+</body>
+</html>

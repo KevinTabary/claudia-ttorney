@@ -6,6 +6,8 @@
 </head>
 <body>
 <p><a href="customer.html" th:href="@{/customer}">Customer</a></p>
+<p><a href="prestation.html" th:href="@{/prestation}">prestation</a></p>
+
 
 <h1>Form</h1>
 <form action="#" th:action="@{/case}" th:object="${case}" method="post">
@@ -45,6 +47,9 @@
         <th>Hourly rate</th>
         <th>Status</th>
         <th>Customers</th>
+        <th>Create customer</th>
+        <th>Prestation</th>
+        <th>Create prestation</th>
     </tr>
     <tr th:each="case : ${cases}">
         <td th:text="${case.description}"></td>
@@ -56,7 +61,15 @@
             </ul>
         </td>
         <td><a th:href="@{/customer/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create
-            case</a>
+            customer</a>
+        </td>
+        <td>
+            <ul>
+                <li th:each="prestation : ${case.prestations}" th:text="${prestation.details}"></li>
+            </ul>
+        </td>
+        <td><a th:href="@{/prestation/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create
+            prestation</a>
         </td>
     </tr>
 </table>

@@ -11,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @SessionAttributes("case")
@@ -27,14 +25,10 @@ public class CaseController {
         this.customerService = customerService;
     }
 
-    @ModelAttribute("cases")
-    public List<Case> findAll() {
-        return caseService.findAll();
-    }
-
     @GetMapping("/case")
     public String getCase(Model model) {
-        model.addAttribute(new Case());
+        model.addAttribute("case", new Case());
+        model.addAttribute("cases", caseService.findAll());
         return "case";
     }
 
@@ -45,6 +39,7 @@ public class CaseController {
         }
         caseService.save(aCase);
         model.addAttribute("cases", caseService.findAll());
+        model.addAttribute("case", new Case());
         return "case";
     }
 
@@ -52,10 +47,10 @@ public class CaseController {
     public String test(@PathVariable("customerId") Long customerId, Model model) {
         Customer customer = customerService.findOne(customerId);
         Case aCase = new Case();
-        aCase.setCustomers(new ArrayList<>());
         aCase.getCustomers().add(customer);
         customer.getCases().add(aCase);
         model.addAttribute("case", aCase);
+        model.addAttribute("cases", caseService.findAll());
         return "case";
     }
 }
