@@ -48,6 +48,7 @@
         <th>Status</th>
         <th>Customers</th>
         <th>Create customer</th>
+        <th>Add customer</th>
         <th>Prestation</th>
         <th>Create prestation</th>
     </tr>
@@ -60,16 +61,25 @@
                 <li th:each="customer : ${case.customers}" th:text="${customer.firstName}"></li>
             </ul>
         </td>
-        <td><a th:href="@{/customer/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create
-            customer</a>
+        <td><a th:href="@{/customer/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create customer</a>
+        </td>
+        <td>
+            <a href="#" class="open-map" onclick="openPopUp()">Add customer to this case</a>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var message = [[${case.id}]];
+                /*]]>*/
+                function openPopUp() {
+                    window.open('customer/add/' + message, 'window', 'width=500,height=300');
+                }
+            </script>
         </td>
         <td>
             <ul>
                 <li th:each="prestation : ${case.prestations}" th:text="${prestation.details}"></li>
             </ul>
         </td>
-        <td><a th:href="@{/prestation/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create
-            prestation</a>
+        <td><a th:href="@{/prestation/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create prestation</a>
         </td>
     </tr>
 </table>

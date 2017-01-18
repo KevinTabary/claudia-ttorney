@@ -43,7 +43,6 @@ public class CustomerController {
         return "customer";
     }
 
-
     @GetMapping(value = "/customer/{caseId}/create")
     public String test(@PathVariable("caseId") Long caseId, Model model) {
         Case aCase = caseRepository.findOne(caseId);
@@ -52,6 +51,11 @@ public class CustomerController {
         model.addAttribute("customer", customer);
         model.addAttribute("customers", customerService.findAll());
         return "customer";
+    }
+
+    @GetMapping(value = "/customer/add/{caseId}")
+    public String getPopUp() {
+        return "test";
     }
 
 }
