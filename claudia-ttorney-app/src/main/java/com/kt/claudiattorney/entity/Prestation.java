@@ -42,5 +42,5 @@ public class Prestation {
     private Bill bill;
     @ManyToOne
     @JoinColumn(name = "CASE_ID")
-    private Case aCase;
+    private CourtCase courtCase;
 }

@@ -1,7 +1,7 @@
 package com.kt.claudiattorney.service;
 
-import com.kt.claudiattorney.entity.Case;
-import com.kt.claudiattorney.repository.CaseRepository;
+import com.kt.claudiattorney.entity.CourtCase;
+import com.kt.claudiattorney.repository.CourtCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,18 +10,18 @@ import java.util.List;
 @Service
 public class CaseService {
 
-    private final CaseRepository caseRepository;
+    private final CourtCaseRepository courtCaseRepository;
 
     @Autowired
-    public CaseService(CaseRepository caseRepository) {
-        this.caseRepository = caseRepository;
+    public CaseService(CourtCaseRepository courtCaseRepository) {
+        this.courtCaseRepository = courtCaseRepository;
     }
 
-    public List<Case> findAll() {
-        return caseRepository.findAll();
+    public List<CourtCase> findAll() {
+        return courtCaseRepository.findAll();
     }
 
-    public Case save(Case aCase) {
-        return caseRepository.save(aCase);
+    public CourtCase save(CourtCase aCase) {
+        return courtCaseRepository.save(aCase);
     }
 }

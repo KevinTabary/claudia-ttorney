@@ -1,8 +1,8 @@
 package com.kt.claudiattorney.controller;
 
-import com.kt.claudiattorney.entity.Case;
+import com.kt.claudiattorney.entity.CourtCase;
 import com.kt.claudiattorney.entity.Prestation;
-import com.kt.claudiattorney.repository.CaseRepository;
+import com.kt.claudiattorney.repository.CourtCaseRepository;
 import com.kt.claudiattorney.repository.PrestationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +18,12 @@ import java.util.List;
 public class PrestationController {
 
     private final PrestationRepository prestationRepository;
-    private final CaseRepository caseRepository;
+    private final CourtCaseRepository courtCaseRepository;
 
     @Autowired
-    public PrestationController(PrestationRepository prestationRepository, CaseRepository caseRepository) {
+    public PrestationController(PrestationRepository prestationRepository, CourtCaseRepository courtCaseRepository) {
         this.prestationRepository = prestationRepository;
-        this.caseRepository = caseRepository;
+        this.courtCaseRepository = courtCaseRepository;
     }
 
     @ModelAttribute("prestations")
@@ -39,9 +39,9 @@ public class PrestationController {
 
     @GetMapping(value = "/prestation/{caseId}/create")
     public String initCreateForm(@PathVariable("caseId") Long caseId, Model model) {
-        Case aCase = caseRepository.findOne(caseId);
+        CourtCase aCase = courtCaseRepository.findOne(caseId);
         Prestation prestation = new Prestation();
-        prestation.setACase(aCase);
+        prestation.setCourtCase(aCase);
         model.addAttribute("prestation", prestation);
         return "prestation";
     }

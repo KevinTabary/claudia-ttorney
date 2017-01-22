@@ -33,5 +33,5 @@ public class OpposingCounsel {
     private String other;
     @ManyToMany
     @JoinTable(name = "OPPOSING_COUNSEL_CASES", joinColumns = @JoinColumn(name = "OPPOSING_COUNSEL_ID"), inverseJoinColumns = @JoinColumn(name = "CASE_ID"))
-    private List<Case> casesManaged;
+    private List<CourtCase> casesManaged;
 }

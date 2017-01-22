@@ -26,5 +26,5 @@ public class Appointment {
     private AppointmentType type;
     @ManyToOne
     @JoinColumn(name = "CASE_ID")
-    private Case aCase;
+    private CourtCase courtCase;
 }

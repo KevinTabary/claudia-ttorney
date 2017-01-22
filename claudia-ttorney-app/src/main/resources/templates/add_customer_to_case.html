@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add customer to case</title>
+</head>
+<body>
+<form th:name="certform" th:action="@{/customer/case/add/{caseId}(caseId=${caseId})}" th:object="${customerForm}"
+      method="post">
+    <script type="text/javascript">
+        function closeSelf() {
+            document.forms['certform'].submit();
+            window.opener.location.reload(true);
+//            window.close();
+        }
+    </script>
+    <table>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.mail}"></td>
+            <td>
+                <input type="checkbox" th:field="*{customers}" th:value="${customer.id}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" onclick="closeSelf()">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

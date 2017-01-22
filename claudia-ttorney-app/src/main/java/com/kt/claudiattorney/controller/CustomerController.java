@@ -1,8 +1,9 @@
 package com.kt.claudiattorney.controller;
 
-import com.kt.claudiattorney.entity.Case;
+import com.kt.claudiattorney.dto.CustomerForm;
+import com.kt.claudiattorney.entity.CourtCase;
 import com.kt.claudiattorney.entity.Customer;
-import com.kt.claudiattorney.repository.CaseRepository;
+import com.kt.claudiattorney.repository.CourtCaseRepository;
 import com.kt.claudiattorney.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,13 @@ import javax.validation.Valid;
 @SessionAttributes("customer")
 public class CustomerController {
 
-    private final CaseRepository caseRepository;
+    private final CourtCaseRepository courtCaseRepository;
     private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, CaseRepository caseRepository) {
+    public CustomerController(CustomerService customerService, CourtCaseRepository courtCaseRepository) {
         this.customerService = customerService;
-        this.caseRepository = caseRepository;
+        this.courtCaseRepository = courtCaseRepository;
     }
 
     @GetMapping("/customer")
@@ -45,17 +46,31 @@ public class CustomerController {
 
     @GetMapping(value = "/customer/{caseId}/create")
     public String test(@PathVariable("caseId") Long caseId, Model model) {
-        Case aCase = caseRepository.findOne(caseId);
+        CourtCase courtCase = courtCaseRepository.findOne(caseId);
         Customer customer = new Customer();
-        customer.getCases().add(aCase);
+        customer.getCourtCases().add(courtCase);
+        courtCase.getCustomers().add(customer);
         model.addAttribute("customer", customer);
         model.addAttribute("customers", customerService.findAll());
         return "customer";
     }
 
     @GetMapping(value = "/customer/add/{caseId}")
-    public String getPopUp() {
-        return "test";
+    public String getPopUp(Model model, @PathVariable("caseId") Long caseId) {
+        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("customerForm", new CustomerForm());
+        model.addAttribute("caseId", caseId);
+        return "add_customer_to_case";
     }
 
+    @PostMapping(value = "/customer/case/add/{caseId}")
+    public String addCustomersToCase(@PathVariable("caseId") Long caseId, @ModelAttribute("customerForm") CustomerForm customerForm, Model model) {
+        CourtCase courtCase = courtCaseRepository.findOne(caseId);
+        courtCase.getCustomers().addAll(customerForm.getCustomers());
+        customerForm.getCustomers().forEach(customer -> customer.getCourtCases().add(courtCase));
+        courtCaseRepository.save(courtCase);
+        model.addAttribute("case", new CourtCase());
+        model.addAttribute("cases", courtCaseRepository.findAll());
+        return "case";
+    }
 }

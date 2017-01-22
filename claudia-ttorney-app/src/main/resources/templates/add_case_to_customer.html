@@ -1,16 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="UTF-8"/>
+    <title>Add case to customer</title>
 </head>
 <body>
-<p><a href="customer.html" th:href="@{/customer}">Customer</a></p>
-<p><a href="prestation.html" th:href="@{/prestation}">prestation</a></p>
-
-
 <h1>Form</h1>
-<form action="#" th:action="@{/case}" th:object="${case}" method="post">
+<form th:action="@{/case/add/customer/{customerId}(customerId=${customerId})}" th:object="${case}" method="post">
     <table>
         <tr>
             <td>Description:</td>
@@ -85,5 +81,6 @@
         </td>
     </tr>
 </table>
+
 </body>
 </html>

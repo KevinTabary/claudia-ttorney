@@ -26,5 +26,5 @@ public class Task {
     private TaskStatus status;
     @ManyToOne
     @JoinColumn(name = "CASE_ID")
-    private Case aCase;
+    private CourtCase courtCase;
 }

@@ -79,7 +79,7 @@
         <td th:text="${customer.vat}"></td>
         <td>
             <ul>
-                <li th:each="case : ${customer.cases}" th:text="${case.description}"></li>
+                <li th:each="case : ${customer.courtCases}" th:text="${case.description}"></li>
             </ul>
         </td>
         <td><a th:href="@{/case/{customerId}/create(customerId=${customer.id})}" class="btn btn-default">Create case</a>

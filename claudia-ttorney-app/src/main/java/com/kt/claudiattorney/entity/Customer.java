@@ -19,33 +19,27 @@ public class Customer {
     @Column(name = "ID")
     private Long id;
     @Column(name = "FIRST_NAME")
-//    @NotEmpty(message = "First name cannot be null !")
     private String firstName;
     @Column(name = "LAST_NAME")
-//    @NotEmpty(message = "Last name cannot be null !")
     private String lastName;
     @Column(name = "ADDRESS")
-//    @NotEmpty(message = "Address name cannot be null !")
     private String address;
     @Column(name = "PHONE_NUMBER")
-//    @NotEmpty(message = "Phone number cannot be null !")
     private String phoneNumber;
     @Column(name = "MAIL")
-//    @NotEmpty(message = "mail cannot be null !")
     private String mail;
     @Column(name = "OTHER")
     private String other;
     @Column(name = "VAT")
-//    @NotNull(message = "VAT cannot be null !")
     private Double vat;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTOMER_CASE", joinColumns = @JoinColumn(name = "CUSTOMER_ID"), inverseJoinColumns = @JoinColumn(name = "CASE_ID"))
-    private List<Case> cases;
+    private List<CourtCase> courtCases;
 
-    public List<Case> getCases() {
-        if (cases == null) {
-            cases = Lists.newArrayList();
+    public List<CourtCase> getCourtCases() {
+        if (courtCases == null) {
+            courtCases = Lists.newArrayList();
         }
-        return cases;
+        return courtCases;
     }
 }
