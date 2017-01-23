@@ -4,7 +4,13 @@
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
+<body onload="closeAndReload()">
+<script>
+    function closeAndReload() {
+        window.close();
+        window.opener.location.reload(true);
+    }
+</script>
 <p><a href="customer.html" th:href="@{/customer}">Customer</a></p>
 <p><a href="prestation.html" th:href="@{/prestation}">prestation</a></p>
 

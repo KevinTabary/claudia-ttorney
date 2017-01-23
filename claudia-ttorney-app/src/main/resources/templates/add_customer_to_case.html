@@ -7,13 +7,6 @@
 <body>
 <form th:name="certform" th:action="@{/customer/case/add/{caseId}(caseId=${caseId})}" th:object="${customerForm}"
       method="post">
-    <script type="text/javascript">
-        function closeSelf() {
-            document.forms['certform'].submit();
-            window.opener.location.reload(true);
-//            window.close();
-        }
-    </script>
     <table>
         <tr th:each="customer : ${customers}">
             <td th:text="${customer.id}"></td>
@@ -27,7 +20,7 @@
         </tr>
         <tr>
             <td>
-                <button type="submit" onclick="closeSelf()">Submit</button>
+                <button type="submit" onclick="submitForm()">Submit</button>
             </td>
         </tr>
     </table>
