@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CaseService {
+public class CourtCaseService {
 
     private final CourtCaseRepository courtCaseRepository;
 
     @Autowired
-    public CaseService(CourtCaseRepository courtCaseRepository) {
+    public CourtCaseService(CourtCaseRepository courtCaseRepository) {
         this.courtCaseRepository = courtCaseRepository;
     }
 
@@ -21,7 +21,7 @@ public class CaseService {
         return courtCaseRepository.findAll();
     }
 
-    public CourtCase save(CourtCase aCase) {
-        return courtCaseRepository.save(aCase);
+    public CourtCase findOne(Long courtCaseId) {
+        return courtCaseRepository.findOne(courtCaseId);
     }
 }

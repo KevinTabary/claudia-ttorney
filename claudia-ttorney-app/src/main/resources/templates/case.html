@@ -72,15 +72,9 @@
         <td><a th:href="@{/customer/{caseId}/create(caseId=${case.id})}" class="btn btn-default">Create customer</a>
         </td>
         <td>
-            <a href="#" class="open-map" onclick="openPopUp()">Add customer to this case</a>
-            <script th:inline="javascript">
-                /*<![CDATA[*/
-                var message = [[${case.id}]];
-                /*]]>*/
-                function openPopUp() {
-                    window.open('customer/add/' + message, 'window', 'width=500,height=300');
-                }
-            </script>
+            <a th:href="@{/customer/add/{caseId}(caseId=${case.Id})}"
+               onclick="window.open(this.href, 'window', 'width=500,height=300');return false;">Add customer to this
+                case</a>
         </td>
         <td>
             <ul>

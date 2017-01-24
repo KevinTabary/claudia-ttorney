@@ -1,20 +1,25 @@
 package com.kt.claudiattorney.service;
 
+import com.kt.claudiattorney.entity.CourtCase;
 import com.kt.claudiattorney.entity.Customer;
 import com.kt.claudiattorney.repository.CustomerRepository;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CourtCaseService courtCaseService;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, CourtCaseService courtCaseService) {
         this.customerRepository = customerRepository;
+        this.courtCaseService = courtCaseService;
     }
 
     public List<Customer> findAll() {
@@ -27,5 +32,20 @@ public class CustomerService {
 
     public Customer findOne(Long id) {
         return customerRepository.findOne(id);
+    }
+
+    public List<Customer> findAllCustomersNotInCase(Long courtCaseId) {
+        List<Customer> customers;
+        CourtCase courtCase = courtCaseService.findOne(courtCaseId);
+        if (CollectionUtils.isNotEmpty(courtCase.getCustomers())) {
+            List<Long> customerIds = courtCase.getCustomers()
+                    .stream()
+                    .map(Customer::getId)
+                    .collect(Collectors.toList());
+            customers = customerRepository.findByIdNotIn(customerIds);
+        } else {
+            customers = customerRepository.findAll();
+        }
+        return customers;
     }
 }
