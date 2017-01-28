@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Index</title>
+    <title>Claudia-ttorney web-app</title>
 </head>
+<script src="http://www.w3schools.com/lib/w3data.js"></script>
 <body>
-<p>
-    <a href="customer.html" th:href="@{/customer}">Customer</a>
-    <a href="prestation.html" th:href="@{/prestation}">Prestation</a>
-    <a href="case.html" th:href="@{/case}">Case</a>
-</p>
+<div w3-include-html="navbar.html"></div>
+<script>
+    w3IncludeHTML();
+</script>
 </body>
 </html>
