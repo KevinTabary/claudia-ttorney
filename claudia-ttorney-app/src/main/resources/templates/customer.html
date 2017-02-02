@@ -18,19 +18,17 @@
         <div class="accordion-group">
             <div class="accordion-heading">
                 <div class="row">
-                    <h3><a class="accordion-toggle" data-toggle="collapse" data-parent="#searchAccordion"
-                           href="#collapseTwo">Create new customer</a></h3>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseExample">
+                        Create new customer
+                    </button>
                 </div>
             </div>
             <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <form class="form-horizontal" data-toggle="validator">
                         <fieldset>
-                            <!-- Form Name -->
-                            <legend>Form Name</legend>
-                            <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Name</label>
+                                <label class="col-md-4 control-label" for="textinput">First name</label>
                                 <div class="col-md-6">
                                     <input id="textinput" name="textinput" type="text" placeholder="placeholder"
                                            class="form-control input-md" required="required"/>
@@ -38,7 +36,7 @@
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="color">Color</label>
+                                <label class="col-md-4 control-label" for="color">Last name</label>
                                 <div class="col-md-6">
                                     <input id="color" name="color" type="text" placeholder="#F0F0F0"
                                            class="form-control input-md" required=""/>
@@ -46,7 +44,7 @@
                             </div>
                             <!-- Appended Input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="account">Choose Account</label>
+                                <label class="col-md-4 control-label" for="account">Address</label>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <input id="account" name="account" class="form-control"
@@ -57,71 +55,18 @@
                             </div>
                             <!-- Appended Input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="apikey">API Key</label>
+                                <label class="col-md-4 control-label" for="apikey">Phone number</label>
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <input id="apikey" name="apikey" class="form-control"
                                                placeholder="QWERTYUIOASDFGHJXCVBNMZXZ567" type="text"/>
                                         <span class="input-group-addon">Test</span>
                                     </div>
-                                    <p class="help-block">help</p>
-                                </div>
-                            </div>
-                            <!-- Multiple Checkboxes (inline) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="notification"></label>
-                                <div class="col-md-4">
-                                    <label class="checkbox-inline" for="notification-0">
-                                        <input type="checkbox" name="notification" id="notification-0" value="1"/>
-                                        Enable Notification
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- Select Basic -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="threshold">If</label>
-                                <div class="col-md-4">
-                                    <select id="threshold" name="threshold" class="form-control">
-                                        <option value="1">Threshold Attribute</option>
-                                        <option value="2">Threshold Attribute2</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Select Basic -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="comparison"></label>
-                                <div class="col-md-4">
-                                    <select id="comparison" name="comparison" class="form-control">
-                                        <option value="GT">Greater than</option>
-                                        <option value="LT">Less than</option>
-                                        <option value="GET">Greater or equal to</option>
-                                        <option value="LET">Less than or equal to</option>
-                                        <option value="ET">equal to</option>
-                                        <option value="NET">not equal to</option>
-                                    </select>
                                 </div>
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="thresholdvalue"></label>
-                                <div class="col-md-4">
-                                    <input id="thresholdvalue" name="thresholdvalue" type="text"
-                                           placeholder="threshold value" class="form-control input-md"/>
-                                </div>
-                            </div>
-                            <!-- Select Basic -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="notifymode">Notify Using</label>
-                                <div class="col-md-6">
-                                    <select id="notifymode" name="notifymode" class="form-control">
-                                        <option value="email">Email</option>
-                                        <option value="sms">SMS</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="email">e-mail ID</label>
+                                <label class="col-md-4 control-label" for="email">Email</label>
                                 <div class="col-md-6">
                                     <input id="email" name="email" type="text" placeholder="name@domain.com"
                                            class="form-control input-md"/>
@@ -129,46 +74,17 @@
                             </div>
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="sms">SMS</label>
+                                <label class="col-md-4 control-label" for="sms">Other</label>
                                 <div class="col-md-6">
                                     <input id="sms" name="sms" type="text" placeholder="+919829839832"
                                            class="form-control input-md"/>
                                 </div>
                             </div>
-                            <!-- Multiple Radios (inline) -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="reqType">Request Type</label>
-                                <div class="col-md-4">
-                                    <label class="radio-inline" for="reqType-0">
-                                        <input type="radio" name="reqType" id="reqType-0" value="post"
-                                               checked="checked"/> POST
-                                    </label>
-                                    <label class="radio-inline" for="reqType-1">
-                                        <input type="radio" name="reqType" id="reqType-1" value="get"/> GET
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- Multiple Radios (inline) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="dataFormat">Data Format</label>
-                                <div class="col-md-4">
-                                    <label class="radio-inline" for="dataFormat-0">
-                                        <input type="radio" name="dataFormat" id="dataFormat-0" value="json"
-                                               checked="checked"/> JSON
-                                    </label>
-                                    <label class="radio-inline" for="dataFormat-1">
-                                        <input type="radio" name="dataFormat" id="dataFormat-1" value="xml"/> XML
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- Multiple Checkboxes (inline) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="appendUrlParams"></label>
-                                <div class="col-md-4">
-                                    <label class="checkbox-inline" for="appendUrlParams-0">
-                                        <input type="checkbox" name="appendUrlParams" id="appendUrlParams-0" value="1"/>
-                                        Append URL Params
-                                    </label>
+                                <label class="col-md-4 control-label" for="sms">Vat</label>
+                                <div class="col-md-6">
+                                    <input id="sms" name="sms" type="text" placeholder="+919829839832"
+                                           class="form-control input-md"/>
                                 </div>
                             </div>
                             <!-- Button (Double) -->
