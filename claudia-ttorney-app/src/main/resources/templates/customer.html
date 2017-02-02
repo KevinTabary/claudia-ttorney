@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Claudia-ttorney web-app</title>
@@ -13,293 +13,107 @@
 <script>
     w3IncludeHTML();
 </script>
-<div class="container">
-    <div class="accordion" id="searchAccordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <div class="row">
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseExample">
-                        Create new customer
+<div class="row">
+    <div class="col-lg-10">
+        <h1 style="padding-left: 70px">Manage Customers</h1>
+    </div>
+    <div class="col-lg-2">
+        <button type="button" data-toggle="modal" data-target="#modal" class="btn btn-success btn-lg">
+            <i class="glyphicon glyphicon-plus"></i> Add Customer
+        </button>
+    </div>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Enter new customer</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            </div>
-            <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <form class="form-horizontal" data-toggle="validator">
-                        <fieldset>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">First name</label>
-                                <div class="col-md-6">
-                                    <input id="textinput" name="textinput" type="text" placeholder="placeholder"
-                                           class="form-control input-md" required="required"/>
-                                </div>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="color">Last name</label>
-                                <div class="col-md-6">
-                                    <input id="color" name="color" type="text" placeholder="#F0F0F0"
-                                           class="form-control input-md" required=""/>
-                                </div>
-                            </div>
-                            <!-- Appended Input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="account">Address</label>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input id="account" name="account" class="form-control"
-                                               placeholder="Alan Francis" type="text"/>
-                                        <span class="input-group-addon">+Add Account</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Appended Input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="apikey">Phone number</label>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input id="apikey" name="apikey" class="form-control"
-                                               placeholder="QWERTYUIOASDFGHJXCVBNMZXZ567" type="text"/>
-                                        <span class="input-group-addon">Test</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="email">Email</label>
-                                <div class="col-md-6">
-                                    <input id="email" name="email" type="text" placeholder="name@domain.com"
-                                           class="form-control input-md"/>
-                                </div>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="sms">Other</label>
-                                <div class="col-md-6">
-                                    <input id="sms" name="sms" type="text" placeholder="+919829839832"
-                                           class="form-control input-md"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="sms">Vat</label>
-                                <div class="col-md-6">
-                                    <input id="sms" name="sms" type="text" placeholder="+919829839832"
-                                           class="form-control input-md"/>
-                                </div>
-                            </div>
-                            <!-- Button (Double) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="submitButton"></label>
-                                <div class="col-md-8">
-                                    <button id="submitButton" name="submitButton" class="btn btn-success">Save</button>
-                                    <button id="cancel" type="reset" name="cancel" class="btn btn-inverse">Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <h1>Customer list </h1>
-        <nav class="navbar navbar-default query" role="query">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="">
-                    <div class="navbar-form navbar-left">
-                        <input type="text" class="form-control"/>
-                        <button class="btn btn-default">查询</button>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">First name</label>
+                        <div class="col-md-6">
+                            <input th:field="*{firstName}" id="textinput" name="textinput" type="text"
+                                   placeholder="placeholder"
+                                   class="form-control input-md" required=""/>
+                        </div>
                     </div>
-                    <button class="btn btn-primary create pull-right">添加账号</button>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="color">Last name</label>
+                        <div class="col-md-6">
+                            <input th:field="*{lastName}" id="color" name="color" type="text" placeholder="#F0F0F0"
+                                   class="form-control input-md" required=""/>
+                        </div>
+                    </div>
+                    <!-- Appended Input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="account">Address</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                    <textarea th:field="*{address}" id="account" name="account" class="form-control"
+                                              rows="5" cols="100"
+                                              style="resize: none"
+                                              placeholder="Alan Francis" type="text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Appended Input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="apikey">Phone number</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input th:field="*{phoneNumber}" id="apikey" name="apikey" class="form-control"
+                                       placeholder="QWERTYUIOASDFGHJXCVBNMZXZ567" type="text"/>
+                                <span class="input-group-addon">Test</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="email">Email</label>
+                        <div class="col-md-6">
+                            <input th:field="*{mail}" id="email" name="email" type="text"
+                                   placeholder="name@domain.com"
+                                   class="form-control input-md"/>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="sms">Other</label>
+                        <div class="col-md-6">
+                            <input th:field="*{other}" id="sms" name="sms" type="text" placeholder="+919829839832"
+                                   class="form-control input-md"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="sms">Vat</label>
+                        <div class="col-md-6">
+                            <input th:field="*{vat}" id="sms" name="sms" type="text" placeholder="+919829839832"
+                                   class="form-control input-md"/>
+                        </div>
+                    </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="reset" class="btn btn-danger">Clear</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-        </nav>
-        <div class="table-responsive col-md-12">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Mail</th>
-                    <th>PhoneNumber</th>
-                    <th>Address</th>
-                    <th>Other</th>
-                    <th>Vat</th>
-                    <th>Cases</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>董卓<br/>
-                        (未绑定手机)</p></td>
-                    <td><p><span class="label label-success">启用</span></p></td>
-                    <td><p>系统管理员</p></td>
-                    <td><p></p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>董卓<br/>
-                        (未绑定手机)</p></td>
-                    <td><p><span class="label label-success">启用</span></p></td>
-                    <td><p>系统管理员</p></td>
-                    <td><p></p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>董卓<br/>
-                        (13122222222)</p></td>
-                    <td><p><span class="label label-success">启用</span></p></td>
-                    <td><p>系统管理员</p></td>
-                    <td><p></p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-                        <a class="btn btn-link" href="#">解绑手机</a>
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>董卓<br/>
-                        (13122222222)</p></td>
-                    <td><p><span class="label label-success">启用</span></p></td>
-                    <td><p>系统管理员</p></td>
-                    <td><p></p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-                        <a class="btn btn-link" href="#">解绑手机</a>
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>董卓<br/>
-                        (13122222222)</p></td>
-                    <td><p><span class="label label-success">启用</span></p></td>
-                    <td><p>系统管理员<br/>店长<br/>区域经理</p></td>
-                    <td><p>饿货去吃士力架了</p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-                        <a class="btn btn-link" href="#">解绑手机</a>
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>xizhimen</p></td>
-                    <td><p>
-                        董卓<br/>
-                        (13122222222)
-                    </p></td>
-                    <td><p><span class="label label-danger">停用</span></p></td>
-                    <td><p>系统管理员</p></td>
-                    <td><p></p></td>
-                    <td class="col-md-2"><p>
-                        <a class="btn btn-link" href="#">修改权限</a>
-                        <a class="btn btn-link" href="#">重置密码</a>
-                        <a class="btn btn-link" href="#">解绑手机</a>
-                        <a class="btn btn-link" href="#">修改账号</a>
-                        <a class="btn btn-link" href="#">删除账号</a>
-                    </p></td>
-                    <td>
-                        <p>
-                            Test1
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            Test2
-                        </p>
-                    </td>
-                </tr>
-
-                </tbody>
-            </table>
-        </div>
-        <div class="pull-right">
-            <ul class="pagination">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
-        </div>
+        </form>
     </div>
 </div>
+<script>
+    $('#modal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    })
+</script>
 </body>
 </html>
