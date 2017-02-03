@@ -8,7 +8,7 @@
     <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
     <script src="http://www.w3schools.com/lib/w3data.js"></script>
 </head>
-<body style="padding-top: 70px">
+<body style="padding-top: 70px; overflow-x: hidden">
 <div w3-include-html="navbar.html"></div>
 <script>
     w3IncludeHTML();
@@ -23,7 +23,46 @@
         </button>
     </div>
 </div>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="row">
+    <div class="col-lg-3" style="border:1px solid #999">
+        <!-- Search customers -->
+        <h3>Search Customers</h3>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter search text"/>
+            <span class="input-group-addon" id="basic-addon1">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+
+        <div class=" pre-scrollable" style="max-height: 720px">
+            <div class="col-lg-12 customer-row animate " th:each=" customer : ${customers}">
+                <div class="row" style="padding-top: 10px">
+                    <div class="col-lg-3">
+                        <br/>
+                        <span class="glyphicon glyphicon-user"></span>
+                    </div>
+                    <div class="col-lg-9">
+                        <div style="font-weight:bold;">
+                            <a th:text="*{customer.firstName} + ' ' + *{customer.lastName}" th:href="test" style="cursor:pointer"></a>
+                            <span class="pull-right" title="Delete customer">
+                            <i ng-click="deleteCustomer($event, customer.CustomerId)" class="glyphicon glyphicon-trash"></i>
+                        </span>
+                        </div>
+                        <div th:text="*{customer.address}"></div>
+                        <div th:text="*{customer.mail}"></div>
+                        <div th:text="*{customer.phoneNumber}"></div>
+                    </div>
+                </div>
+                <hr style="border-top: dotted 1px;"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9" style="border:1px solid #999; overflow-y:auto">
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
         <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal">
             <div class="modal-content">
@@ -101,8 +140,8 @@
                     <div class="form-group">
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Save changes</button>
-                            <button type="reset" class="btn btn-danger">Clear</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="reset" class="btn btn-warning">Clear</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
