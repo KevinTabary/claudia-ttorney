@@ -1,6 +1,7 @@
 package com.kt.claudiattorney.entity;
 
 import com.google.common.collect.Lists;
+import com.kt.claudiattorney.util.JsonUtils;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,5 +42,10 @@ public class Customer {
             courtCases = Lists.newArrayList();
         }
         return courtCases;
+    }
+
+    @Override
+    public String toString() {
+        return JsonUtils.stringify(this);
     }
 }
