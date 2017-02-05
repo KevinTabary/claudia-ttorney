@@ -70,48 +70,69 @@
                     <span class="glyphicon glyphicon-user" style="font-size: 2000%"></span>
                 </div>
 
-                <div class="col-lg-8" th:object="${currentCustomer}">
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Full Name</label>
-                        <div class="col-lg-8">
-                            <input id="testInput" type="text" class="form-control"/>
+                <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal" method="post">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label for="currentCustomerFullName" class="col-lg-3 control-label">Full Name</label>
+                            <div class="col-lg-8">
+                                <input id="currentCustomerFullName" type="text" class="form-control"
+                                       disabled="disabled"/>
+                            </div>
+                            <div class="col-lg-1">
+                                <button class="btn btn-primary" type="button" onclick="enableOrDisableInput(false)">
+                                    Edit
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-lg-1">
-                            <button ng-click="editCustomer(currentCustomer.CustomerId)" class="btn btn-primary">Edit
-                            </button>
+                        <div class="form-group">
+                            <label for="currentCustomerAddress" class="col-lg-3 control-label">Address</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerAddress"
+                                       disabled="disabled" th:field="*{address}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentCustomerPhoneNumber" class="col-lg-3 control-label">Phone Number</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerPhoneNumber"
+                                       disabled="disabled" th:field="*{phoneNumber}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentCustomerEmail" class="col-lg-3 control-label">Email</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerEmail" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentCustomerOther" class="col-lg-3 control-label">Other</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerOther" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentCustomerVat" class="col-lg-3 control-label">Vat</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerVat" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-1 col-lg-offset-3">
+                                <button id="saveEditing" class="btn btn-primary" type="submit"
+                                        disabled="disabled">
+                                    Save editing
+                                </button>
+                            </div>
+                            <div class="col-lg-1 col-lg-offset-1">
+                                <button id="cancelEditing" type="button" class="btn btn-warning"
+                                        onclick="enableOrDisableInput(true)"
+                                        disabled="disabled">
+                                    Cancel editing
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Address</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.Address"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">City</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.City"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Country</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.Country"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Zip Code</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.ZipCode"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-8 col-lg-offset-3">
-                            <a ui-sref="customer.detail.contact({contactCustomerId: currentCustomer.CustomerId})">Contact
-                                Detail</a>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </fieldset>
         </div>
         <div class="form-horizontal">
@@ -255,14 +276,31 @@
 </div>
 <script th:inline="javascript">
 
-    function populateForm(inputObject) {
-        var parsed = JSON.parse(inputObject);
-        $('#testInput').val(parsed.firstName);
+    function populateForm(inputCustomer) {
+        enableOrDisableInput(true);
+        var customer = JSON.parse(inputCustomer);
+        $('#currentCustomerFullName').val(customer.firstName + ' ' + customer.lastName);
+        $('#currentCustomerAddress').val(customer.address);
+        $('#currentCustomerPhoneNumber').val(customer.phoneNumber);
+        $('#currentCustomerEmail').val(customer.mail);
+        $('#currentCustomerOther').val(customer.other);
+        $('#currentCustomerVat').val(customer.vat);
     }
 
     $('#modal').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset');
-    })
+    });
+
+    function enableOrDisableInput(boolean) {
+        $('#currentCustomerFullName').attr('disabled', boolean);
+        $('#currentCustomerAddress').attr('disabled', boolean);
+        $('#currentCustomerPhoneNumber').attr('disabled', boolean);
+        $('#currentCustomerEmail').attr('disabled', boolean);
+        $('#currentCustomerOther').attr('disabled', boolean);
+        $('#currentCustomerVat').attr('disabled', boolean);
+        $('#cancelEditing').attr('disabled', boolean);
+        $('#saveEditing').attr('disabled', boolean);
+    }
 </script>
 </body>
 </html>
