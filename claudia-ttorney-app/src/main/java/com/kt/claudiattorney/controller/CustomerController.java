@@ -46,6 +46,17 @@ public class CustomerController {
         return "customer";
     }
 
+    @PostMapping("/deleteCustomer")
+    public String deleteCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            return "customer";
+        }
+        customerService.deleteCustomer(customer);
+        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("customer", new Customer());
+        return "customer";
+    }
+
     @GetMapping(value = "/customer/{caseId}/create")
     public String test(@PathVariable("caseId") Long caseId, Model model) {
         CourtCase courtCase = courtCaseRepository.findOne(caseId);

@@ -34,6 +34,10 @@ public class CustomerService {
         return customerRepository.findOne(id);
     }
 
+    public void deleteCustomer(Customer customer) {
+        customerRepository.delete(customer);
+    }
+
     public List<Customer> findAllCustomersNotInCase(Long courtCaseId) {
         List<Customer> customers;
         CourtCase courtCase = courtCaseService.findOne(courtCaseId);

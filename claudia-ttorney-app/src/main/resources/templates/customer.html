@@ -47,12 +47,13 @@
                             <a th:text="*{customer.firstName} + ' ' + *{customer.lastName}"
                                th:onclick="'javascript:populateForm(\'' + *{customer} + '\');'"
                                style="cursor:pointer"></a>
-                            <span class="pull-right" title="Delete customer">
-                            <i ng-click="deleteCustomer($event, customer.CustomerId)"
-                               class="glyphicon glyphicon-trash"></i>
-                        </span>
                         </div>
                         <div th:text="*{customer.address}"></div>
+                        <span class="pull-right" title="Delete customer">
+                        <a href="#" class="icon" th:onclick="'javascript:populateDeleteForm(\'' + *{customer} + '\');'">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        </span>
                         <a th:text="*{customer.mail}" th:href="'mailto:' + *{customer.mail}"></a>
                         <div th:text="*{customer.phoneNumber}"></div>
                     </div>
@@ -73,15 +74,22 @@
                 <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal" method="post">
                     <div class="col-lg-8">
                         <div class="form-group">
-                            <label for="currentCustomerFullName" class="col-lg-3 control-label">Full Name</label>
+                            <label for="currentCustomerFirstName" class="col-lg-3 control-label">First Name</label>
                             <div class="col-lg-8">
-                                <input id="currentCustomerFullName" type="text" class="form-control"
-                                       disabled="disabled"/>
+                                <input id="currentCustomerFirstName" type="text" class="form-control"
+                                       disabled="disabled" th:field="*{firstName}"/>
                             </div>
                             <div class="col-lg-1">
                                 <button class="btn btn-primary" type="button" onclick="enableOrDisableInput(false)">
                                     Edit
                                 </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="currentCustomerLastName" class="col-lg-3 control-label">Last Name</label>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" id="currentCustomerLastName"
+                                       disabled="disabled" th:field="*{lastName}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -101,19 +109,23 @@
                         <div class="form-group">
                             <label for="currentCustomerEmail" class="col-lg-3 control-label">Email</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" id="currentCustomerEmail" disabled="disabled"/>
+                                <input type="text" class="form-control" id="currentCustomerEmail" disabled="disabled"
+                                       th:field="*{mail}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="currentCustomerOther" class="col-lg-3 control-label">Other</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" id="currentCustomerOther" disabled="disabled"/>
+                                <input type="text" class="form-control" id="currentCustomerOther" disabled="disabled"
+                                       th:field="*{other}"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="currentCustomerVat" class="col-lg-3 control-label">Vat</label>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control" id="currentCustomerVat" disabled="disabled"/>
+                                <input type="text" class="form-control" id="currentCustomerVat" disabled="disabled"
+                                       th:field="*{vat}"/>
+                                <input id="currentCustomerId" hidden="hidden" type="text" th:field="*{id}"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -183,6 +195,101 @@
                 </div>
             </fieldset>
         </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true"
+     data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <form th:action="@{/deleteCustomer}" th:object="${customer}" class="form-horizontal" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Delete Customer</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerFirstName">First name</label>
+                        <div class="col-md-6">
+                            <input th:field="*{firstName}" id="deleteCustomerFirstName" name="textinput" type="text"
+                                   placeholder="placeholder"
+                                   class="form-control input-md" required="" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerLastName">Last name</label>
+                        <div class="col-md-6">
+                            <input th:field="*{lastName}" id="deleteCustomerLastName" name="color" type="text"
+                                   placeholder="#F0F0F0"
+                                   class="form-control input-md" required="" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <!-- Appended Input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerAddress">Address</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                    <textarea th:field="*{address}" id="deleteCustomerAddress" name="account"
+                                              class="form-control"
+                                              rows="5" cols="100"
+                                              style="resize: none"
+                                              placeholder="Alan Francis" type="text" disabled="disabled"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Appended Input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerPhoneNumber">Phone number</label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input th:field="*{phoneNumber}" id="deleteCustomerPhoneNumber" name="apikey"
+                                       class="form-control"
+                                       placeholder="QWERTYUIOASDFGHJXCVBNMZXZ567" type="text" disabled="disabled"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerEmail">Email</label>
+                        <div class="col-md-6">
+                            <input th:field="*{mail}" id="deleteCustomerEmail" name="email" type="text"
+                                   placeholder="name@domain.com"
+                                   class="form-control input-md" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerOther">Other</label>
+                        <div class="col-md-6">
+                            <input th:field="*{other}" id="deleteCustomerOther" name="sms" type="text"
+                                   placeholder="+919829839832"
+                                   class="form-control input-md" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="deleteCustomerVat">Vat</label>
+                        <div class="col-md-6">
+                            <input th:field="*{vat}" id="deleteCustomerVat" name="sms" type="text"
+                                   placeholder="+919829839832"
+                                   class="form-control input-md" disabled="disabled"/>
+                            <input id="deleteCustomerId" hidden="hidden" type="text" th:field="*{id}"/>
+                        </div>
+                    </div>
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Delete customer</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -274,17 +381,33 @@
         </form>
     </div>
 </div>
+
 <script th:inline="javascript">
+
+    function populateDeleteForm(inputCustomer) {
+        var customer = JSON.parse(inputCustomer);
+        $('#deleteCustomerFirstName').val(customer.firstName);
+        $('#deleteCustomerLastName').val(customer.lastName);
+        $('#deleteCustomerAddress').val(customer.address);
+        $('#deleteCustomerPhoneNumber').val(customer.phoneNumber);
+        $('#deleteCustomerEmail').val(customer.mail);
+        $('#deleteCustomerOther').val(customer.other);
+        $('#deleteCustomerVat').val(customer.vat);
+        $('#deleteCustomerId').val(customer.id);
+        $('#deleteModal').modal('show');
+    }
 
     function populateForm(inputCustomer) {
         enableOrDisableInput(true);
         var customer = JSON.parse(inputCustomer);
-        $('#currentCustomerFullName').val(customer.firstName + ' ' + customer.lastName);
+        $('#currentCustomerFirstName').val(customer.firstName);
+        $('#currentCustomerLastName').val(customer.lastName);
         $('#currentCustomerAddress').val(customer.address);
         $('#currentCustomerPhoneNumber').val(customer.phoneNumber);
         $('#currentCustomerEmail').val(customer.mail);
         $('#currentCustomerOther').val(customer.other);
         $('#currentCustomerVat').val(customer.vat);
+        $('#currentCustomerId').val(customer.id);
     }
 
     $('#modal').on('hidden.bs.modal', function () {
@@ -292,7 +415,8 @@
     });
 
     function enableOrDisableInput(boolean) {
-        $('#currentCustomerFullName').attr('disabled', boolean);
+        $('#currentCustomerFirstName').attr('disabled', boolean);
+        $('#currentCustomerLastName').attr('disabled', boolean);
         $('#currentCustomerAddress').attr('disabled', boolean);
         $('#currentCustomerPhoneNumber').attr('disabled', boolean);
         $('#currentCustomerEmail').attr('disabled', boolean);
