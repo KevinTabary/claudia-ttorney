@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
     <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
     <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <script src="webjars/bootstrap/3.3.7-1/js/tooltip.js"></script>
     <script src="http://www.w3schools.com/lib/w3data.js"></script>
 </head>
 <body style="padding-top: 70px; overflow-x: hidden">
@@ -45,12 +46,16 @@
                     <div class="col-lg-9">
                         <div style="font-weight:bold;">
                             <a th:text="*{customer.firstName} + ' ' + *{customer.lastName}"
-                               th:onclick="'javascript:populateForm(\'' + *{customer} + '\');'"
+                               th:with='cleaned = ${#strings.replace(customer,"&apos;", "\&apos;")}'
+                               th:onclick="'populateForm(\'' + ${cleaned} + '\');'"
                                style="cursor:pointer"></a>
                         </div>
                         <div th:text="*{customer.address}"></div>
                         <span class="pull-right" title="Delete customer">
-                        <a href="#" class="icon" th:onclick="'javascript:populateDeleteForm(\'' + *{customer} + '\');'">
+                        <a href="#"
+                           class="icon"
+                           th:with='cleaned = ${#strings.replace(customer,"&apos;", "\&apos;")}'
+                           th:onclick="'javascript:populateDeleteForm(\'' + ${cleaned} + '\');'">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                         </span>
@@ -80,7 +85,9 @@
                                        disabled="disabled" th:field="*{firstName}"/>
                             </div>
                             <div class="col-lg-1">
-                                <button class="btn btn-primary" type="button" onclick="enableOrDisableInput(false)">
+                                <button class="btn btn-primary" data-toggle="tooltip" data-placement="top"
+                                        title="Click to edit customer" type="button"
+                                        onclick="enableOrDisableInput(false)">
                                     Edit
                                 </button>
                             </div>
@@ -399,7 +406,7 @@
 
     function populateForm(inputCustomer) {
         enableOrDisableInput(true);
-        var customer = JSON.parse(inputCustomer);
+        var customer = jQuery.parseJSON(inputCustomer);
         $('#currentCustomerFirstName').val(customer.firstName);
         $('#currentCustomerLastName').val(customer.lastName);
         $('#currentCustomerAddress').val(customer.address);
