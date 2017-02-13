@@ -35,6 +35,15 @@ public class CustomerController {
         return "customer";
     }
 
+    @GetMapping("/customer/{customerId}")
+    public String getCustomerById(@PathVariable("customerId") Long customerId, Model model) {
+        Customer customerById = customerService.findOne(customerId);
+        model.addAttribute("fetchedCustomer", customerById);
+        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("customer", new Customer());
+        return "test :: myResult";
+    }
+
     @PostMapping("/customer")
     public String createCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult errors, Model model) {
         if (errors.hasErrors()) {

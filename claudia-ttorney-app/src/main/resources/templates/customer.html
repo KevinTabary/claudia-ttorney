@@ -82,7 +82,7 @@
                             <label for="currentCustomerFirstName" class="col-lg-3 control-label">First Name</label>
                             <div class="col-lg-8">
                                 <input id="currentCustomerFirstName" type="text" class="form-control"
-                                       disabled="disabled" th:field="*{firstName}"/>
+                                       disabled="disabled" th:field="*{firstName}" required="required"/>
                             </div>
                             <div class="col-lg-1">
                                 <button class="btn btn-primary" data-toggle="tooltip" data-placement="top"
@@ -154,54 +154,7 @@
                 </form>
             </fieldset>
         </div>
-        <div class="form-horizontal">
-            <fieldset>
-                <legend>Case Detail</legend>
-
-                <div class="col-lg-8">
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Full Name</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.FullName"/>
-                        </div>
-                        <div class="col-lg-1">
-                            <button ng-click="editCustomer(currentCustomer.CustomerId)" class="btn btn-primary">Edit
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Address</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.Address"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">City</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.City"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Country</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.Country"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail" class="col-lg-3 control-label">Zip Code</label>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" ng-model="currentCustomer.ZipCode"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-8 col-lg-offset-3">
-                            <a ui-sref="customer.detail.contact({contactCustomerId: currentCustomer.CustomerId})">Contact
-                                Detail</a>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
+        <div id="content"></div>
     </div>
 </div>
 
@@ -407,6 +360,7 @@
     function populateForm(inputCustomer) {
         enableOrDisableInput(true);
         var customer = jQuery.parseJSON(inputCustomer);
+        $("#content").load("/customer/" + customer.id);
         $('#currentCustomerFirstName').val(customer.firstName);
         $('#currentCustomerLastName').val(customer.lastName);
         $('#currentCustomerAddress').val(customer.address);
