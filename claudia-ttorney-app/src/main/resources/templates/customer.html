@@ -360,7 +360,10 @@
     function populateForm(inputCustomer) {
         enableOrDisableInput(true);
         var customer = jQuery.parseJSON(inputCustomer);
+
+        $("#content").hide();
         $("#content").load("/customer/" + customer.id);
+        $("#content").fadeIn(500);
         $('#currentCustomerFirstName').val(customer.firstName);
         $('#currentCustomerLastName').val(customer.lastName);
         $('#currentCustomerAddress').val(customer.address);
