@@ -45,7 +45,7 @@ public class CourtCaseController {
         courtCaseRepository.save(courtCase);
         model.addAttribute("cases", courtCaseService.findAll());
         model.addAttribute("case", new CourtCase());
-        return "case";
+        return "redirect:/customer";
     }
 
     @GetMapping(value = "/case/{customerId}/create")
@@ -62,8 +62,8 @@ public class CourtCaseController {
         courtCase.getCustomers().add(customer);
         customer.getCourtCases().add(courtCase);
         courtCaseRepository.save(courtCase);
-        model.addAttribute("case", new CourtCase());
-        model.addAttribute("cases", courtCaseService.findAll());
-        return "case";
+        model.addAttribute("customers", customerService.findAll());
+        model.addAttribute("customer", new Customer());
+        return "redirect:/customer";
     }
 }

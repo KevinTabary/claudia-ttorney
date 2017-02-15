@@ -76,7 +76,7 @@
                     <span class="glyphicon glyphicon-user" style="font-size: 2000%"></span>
                 </div>
 
-                <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal" method="post">
+                <form th:action="@{/customer}" th:object="${customer}" class="form-horizontal" th:method="post">
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label for="currentCustomerFirstName" class="col-lg-3 control-label">First Name</label>

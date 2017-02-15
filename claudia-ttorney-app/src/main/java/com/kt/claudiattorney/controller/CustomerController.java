@@ -41,7 +41,8 @@ public class CustomerController {
         model.addAttribute("fetchedCustomer", customerById);
         model.addAttribute("customers", customerService.findAll());
         model.addAttribute("customer", new Customer());
-        return "test :: myResult";
+        model.addAttribute("case", new CourtCase());
+        return "test";
     }
 
     @PostMapping("/customer")

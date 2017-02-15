@@ -1,7 +1,9 @@
 package com.kt.claudiattorney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.google.common.collect.Lists;
 import com.kt.claudiattorney.util.JsonUtils;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(of = "id")
+@JsonIdentityInfo(generator = JSOGGenerator.class)
 public class Customer {
 
     @Id

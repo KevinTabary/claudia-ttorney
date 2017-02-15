@@ -27,6 +27,11 @@ public class CustomerService {
     }
 
     public void save(Customer customer) {
+        //TODO replace this hack with partial update
+        if (customer.getId() != null) {
+            Customer one = customerRepository.findOne(customer.getId());
+            customer.setCourtCases(one.getCourtCases());
+        }
         customerRepository.save(customer);
     }
 
